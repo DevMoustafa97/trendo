@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import { authContext, MyContextsHook } from './providers/ContextProviders';
+import Home from './views/Home/Home';
+import Login from './views/Login/Login';
 function App() {
+  const {
+    authValue,
+  } = MyContextsHook();
+
+  const { auth } = authValue;
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <authContext.Provider value={authValue}>
+      {auth?.token ? <Home /> : <Login />}
+    </authContext.Provider>
   );
 }
 
